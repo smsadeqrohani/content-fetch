@@ -1,6 +1,6 @@
-# TMDB Movie Search App
+# Filmnet Content Fetch
 
-A comprehensive React web application that allows you to search for movies using The Movie Database (TMDB) API with beautiful formatting and detailed information.
+A comprehensive React web application that allows you to search for movies and TV shows using The Movie Database (TMDB) API with beautiful formatting and detailed information.
 
 ## ✨ Features
 
@@ -61,6 +61,14 @@ A comprehensive React web application that allows you to search for movies using
    ```
 
 3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## 🔖 Versioning
+
+The app automatically displays the current git commit hash in the bottom-right corner instead of a hardcoded version number. This ensures the version tag is always up-to-date with the latest commit.
+
+- **Development**: Shows the short git commit hash (e.g., `e845761`)
+- **Fallback**: Shows `dev` if git is not available
+- **Build Process**: The commit hash is automatically set before each build and start
 
 ## 🔑 API Credentials
 
