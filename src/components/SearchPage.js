@@ -128,9 +128,9 @@ function SearchPage() {
           <div className="movie-list-year">
             {date ? new Date(date).getFullYear() : 'Unknown Year'}
           </div>
-          <div className="movie-list-rating">
-            {item.vote_average ? `⭐ ${item.vote_average.toFixed(1)}/10` : 'No Rating'}
-          </div>
+                          <div className="movie-list-rating">
+                  {item.vote_average ? `⭐ TMDB ${item.vote_average.toFixed(1)}/10` : 'No TMDB Rating'}
+                </div>
         </div>
       </div>
     );

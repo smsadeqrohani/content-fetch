@@ -34,7 +34,7 @@ function DetailPage() {
     character: 'نقش',
     job: 'سمت',
     year: 'سال',
-    rating: 'امتیاز',
+    rating: 'امتیاز TMDB',
     runtime: 'مدت زمان',
     genres: 'ژانرها',
     productionCompanies: 'شرکت‌های تولید',
@@ -46,7 +46,7 @@ function DetailPage() {
     minutes: 'دقیقه',
     unknown: 'نامشخص',
     noOverview: 'خلاصه‌ای موجود نیست',
-    noRating: 'بدون امتیاز',
+    noRating: 'بدون امتیاز TMDB',
     unknownYear: 'سال نامشخص'
   };
 
@@ -235,7 +235,7 @@ IMPORTANT TRANSLATION RULES:
             }
           ],
           max_tokens: 1000,
-          temperature: 0.7
+          temperature: 0.9
         })
       });
 
@@ -517,7 +517,7 @@ IMPORTANT TRANSLATION RULES:
                   </>
                 )}
                 <div className="info-item">
-                  <strong>Rating:</strong> {content.vote_average ? `${content.vote_average}/10 (${content.vote_count} votes)` : 'No ratings'}
+                  <strong>TMDB Rating:</strong> {content.vote_average ? `${content.vote_average}/10 (${content.vote_count} votes)` : 'No ratings'}
                 </div>
                 <div className="info-item">
                   <strong>Popularity:</strong> {content.popularity?.toFixed(2) || 'Unknown'}
