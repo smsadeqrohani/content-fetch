@@ -1,70 +1,166 @@
-# Getting Started with Create React App
+# TMDB Movie Search App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive React web application that allows you to search for movies using The Movie Database (TMDB) API with beautiful formatting and detailed information.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+### Search Options
+- **Search by Movie Name**: Find movies by entering their title
+- **Search by Movie ID**: Get detailed information about a specific movie using its TMDB ID
 
-### `npm start`
+### Display Modes
+- **Formatted View**: Beautiful, organized display of movie information
+- **Raw JSON View**: Complete API response for developers
+- **Copy to Clipboard**: One-click copying of JSON data
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Movie Information Displayed
+- **Summary**: Movie overview and description
+- **Basic Information**: Title, release date, language, runtime, status
+- **Financial Data**: Budget and revenue information
+- **Ratings**: Vote average and vote count
+- **Genres**: Movie categories with colorful tags
+- **Production Companies**: Studio logos and names
+- **Languages**: Available spoken languages
+- **Cast & Crew**: Actor photos, names, characters, and crew roles
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🎬 How to Use
 
-### `npm test`
+### Search by Name
+1. Select "Search by Name" option
+2. Enter a movie title (e.g., "The Matrix", "Inception", "Sandman")
+3. Click "Search" to get a list of matching movies
+4. View formatted cards with basic information
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Search by ID
+1. Select "Search by ID" option
+2. Enter a TMDB movie ID (e.g., "550" for Fight Club, "13" for Forrest Gump)
+3. Click "Search" to get comprehensive movie details
+4. View detailed information including cast & crew
 
-### `npm run build`
+### View Modes
+- **Formatted View**: Default beautiful display
+- **Raw JSON**: Click "Show Raw JSON" to see the complete API response
+- **Copy Data**: Click "Copy JSON to Clipboard" to copy the data
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🔧 API Endpoints Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Search Movies**: `/search/movie` - Returns a list of movies matching the search query
+- **Movie Details**: `/movie/{id}` - Returns detailed information about a specific movie
+- **Movie Credits**: `/movie/{id}/credits` - Returns cast and crew information
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Getting Started
 
-### `npm run eject`
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Start the development server:
+   ```bash
+   npm start
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🔑 API Credentials
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The app is configured with your TMDB API credentials:
+- **API Key**: Your Bearer token is already included in the code
+- **Base URL**: `https://api.themoviedb.org/3`
 
-## Learn More
+## 🎯 Example Movie IDs
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Here are some popular movie IDs you can test with:
+- **550**: Fight Club
+- **13**: Forrest Gump
+- **238**: The Godfather
+- **278**: The Shawshank Redemption
+- **680**: Pulp Fiction
+- **299536**: Avengers: Infinity War
+- **299534**: Avengers: Endgame
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📱 Features Breakdown
 
-### Code Splitting
+### Formatted View
+- **Movie Cards**: Clean, modern design with hover effects
+- **Poster Images**: High-quality movie posters from TMDB
+- **Information Grid**: Organized display of movie details
+- **Genre Tags**: Colorful, categorized genre display
+- **Company Logos**: Production company logos when available
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Cast & Crew Section (ID Search Only)
+- **Cast Photos**: Circular profile pictures of actors
+- **Character Names**: Actor names and their character roles
+- **Crew Information**: Directors, producers, writers, and more
+- **Responsive Grid**: Adapts to different screen sizes
 
-### Analyzing the Bundle Size
+### Raw Data View
+- **Complete JSON**: Full API response data
+- **Copy Functionality**: One-click copying to clipboard
+- **Formatted Display**: Properly indented JSON for readability
+- **Selectable Text**: Easy text selection for copying
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 🎨 Design Features
 
-### Making a Progressive Web App
+- **Modern UI**: Clean, professional design with gradients
+- **Responsive Design**: Works perfectly on desktop, tablet, and mobile
+- **Hover Effects**: Interactive elements with smooth animations
+- **Color Coding**: Different colors for different types of information
+- **Typography**: Clear, readable fonts with proper hierarchy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔄 State Management
 
-### Advanced Configuration
+The app uses React hooks for state management:
+- `useState` for local component state
+- Async/await for API calls
+- Error handling for failed requests
+- Loading states for better UX
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 📋 Data Structure
 
-### Deployment
+### Search Results (by name)
+```json
+{
+  "page": 1,
+  "results": [...],
+  "total_pages": 4,
+  "total_results": 73
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Movie Details (by ID)
+```json
+{
+  "id": 550,
+  "title": "Fight Club",
+  "overview": "...",
+  "release_date": "1999-10-15",
+  "genres": [...],
+  "cast": [...],
+  "crew": [...]
+}
+```
 
-### `npm run build` fails to minify
+## 🛠️ Technologies Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **React 18**: Modern React with hooks
+- **TMDB API v3**: Comprehensive movie database
+- **CSS3**: Modern styling with gradients and animations
+- **Fetch API**: Native JavaScript for HTTP requests
+- **Responsive Design**: Mobile-first approach
+
+## 🔮 Future Enhancements
+
+Potential features for future development:
+- **Pagination**: Navigate through multiple pages of results
+- **Advanced Filtering**: Filter by year, genre, rating, etc.
+- **Favorites**: Save favorite movies
+- **Similar Movies**: Get recommendations
+- **Trailers**: Embed movie trailers
+- **Reviews**: User and critic reviews
+- **Watchlist**: Create personal watchlists
+- **Dark Mode**: Toggle between light and dark themes
+
+## 📄 License
+
+This project is open source and available under the MIT License.
