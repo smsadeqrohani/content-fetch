@@ -235,7 +235,7 @@ IMPORTANT TRANSLATION RULES:
             }
           ],
           max_tokens: 1000,
-          temperature: 0.3
+          temperature: 0.7
         })
       });
 
