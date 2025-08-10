@@ -4,14 +4,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
-  const [searchType, setSearchType] = useState('name'); // 'name' or 'id'
+  const [searchType, setSearchType] = useState('name'); // Only 'name' search
   const [searchQuery, setSearchQuery] = useState('');
   const [movieData, setMovieData] = useState(null);
   const [searchResults, setSearchResults] = useState(null); // Keep search results separate
   const [castData, setCastData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showRawData, setShowRawData] = useState(false);
+
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [sortBy, setSortBy] = useState('release_date'); // 'release_date' or 'popularity'
   const [showModal, setShowModal] = useState(false);
@@ -372,98 +372,8 @@ IMPORTANT TRANSLATION RULES:
     setTranslatedData(null);
 
     try {
-      let url;
-      
-      if (searchType === 'name') {
-        // Use multi-search to find movies, TV shows, and people with maximum results
-        url = `${BASE_URL}/search/multi?query=${encodeURIComponent(searchQuery)}&include_adult=false&language=en-US&page=1`;
-      } else {
-        // For ID search, we'll need to determine the type first
-        // Let's try movie first, then TV if movie fails
-        try {
-          const movieResponse = await fetch(`${BASE_URL}/movie/${searchQuery}`, {
-            headers: {
-              'Authorization': `Bearer ${API_KEY}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (movieResponse.ok) {
-            const movieData = await movieResponse.json();
-            setMovieData(movieData);
-            
-            // Fetch cast for movie
-            const castResponse = await fetch(`${BASE_URL}/movie/${searchQuery}/credits`, {
-              headers: {
-                'Authorization': `Bearer ${API_KEY}`,
-                'Content-Type': 'application/json'
-              }
-            });
-            
-            if (castResponse.ok) {
-              const castData = await castResponse.json();
-              setCastData(castData);
-            }
-            setLoading(false);
-            return;
-          }
-        } catch (err) {
-          // Movie not found, try TV
-        }
-        
-        // Try TV show
-        try {
-          const tvResponse = await fetch(`${BASE_URL}/tv/${searchQuery}`, {
-            headers: {
-              'Authorization': `Bearer ${API_KEY}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (tvResponse.ok) {
-            const tvData = await tvResponse.json();
-            setMovieData(tvData);
-            
-            // Fetch cast for TV show
-            const castResponse = await fetch(`${BASE_URL}/tv/${searchQuery}/credits`, {
-              headers: {
-                'Authorization': `Bearer ${API_KEY}`,
-                'Content-Type': 'application/json'
-              }
-            });
-            
-            if (castResponse.ok) {
-              const castData = await castResponse.json();
-              setCastData(castData);
-            }
-            setLoading(false);
-            return;
-          }
-        } catch (err) {
-          // TV show not found
-        }
-        
-        // Try person
-        try {
-          const personResponse = await fetch(`${BASE_URL}/person/${searchQuery}`, {
-            headers: {
-              'Authorization': `Bearer ${API_KEY}`,
-              'Content-Type': 'application/json'
-            }
-          });
-          
-          if (personResponse.ok) {
-            const personData = await personResponse.json();
-            setMovieData(personData);
-            setLoading(false);
-            return;
-          }
-        } catch (err) {
-          // Person not found
-        }
-        
-        throw new Error('No content found with this ID');
-      }
+      // Use multi-search to find movies, TV shows, and people with maximum results
+      const url = `${BASE_URL}/search/multi?query=${encodeURIComponent(searchQuery)}&include_adult=false&language=en-US&page=1`;
 
       const response = await fetch(url, {
         headers: {
@@ -478,17 +388,12 @@ IMPORTANT TRANSLATION RULES:
 
       const data = await response.json();
       
-      if (searchType === 'name') {
-        setSearchResults(data); // Keep search results
-        setMovieData(data); // Also set for compatibility
-        if (data.results && data.results.length > 0) {
-          toast.success(`Found ${data.total_results} results for "${searchQuery}"`);
-        } else {
-          toast.warning('No results found for your search');
-        }
+      setSearchResults(data); // Keep search results
+      setMovieData(data); // Also set for compatibility
+      if (data.results && data.results.length > 0) {
+        toast.success(`Found ${data.total_results} results for "${searchQuery}"`);
       } else {
-        setMovieData(data);
-        toast.success('Content found successfully!');
+        toast.warning('No results found for your search');
       }
     } catch (err) {
       const errorMessage = `Error fetching data: ${err.message}`;
@@ -861,37 +766,16 @@ IMPORTANT TRANSLATION RULES:
         theme="light"
       />
       <header className="App-header">
-        <h1>TMDB Content Search</h1>
+        <h1>Filmnet Content Fetch</h1>
         
         <form onSubmit={handleSubmit} className="search-form">
           <div className="search-controls">
-            <div className="search-type">
-              <label>
-                <input
-                  type="radio"
-                  value="name"
-                  checked={searchType === 'name'}
-                  onChange={(e) => setSearchType(e.target.value)}
-                />
-                Search by Name
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="id"
-                  checked={searchType === 'id'}
-                  onChange={(e) => setSearchType(e.target.value)}
-                />
-                Search by ID
-              </label>
-            </div>
-            
             <div className="search-input">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={searchType === 'name' ? 'Enter movie, TV show, or person name...' : 'Enter content ID...'}
+                placeholder="Enter movie, TV show, or person name..."
                 className="search-field"
               />
               <button type="submit" disabled={loading} className="search-button">
@@ -920,7 +804,7 @@ IMPORTANT TRANSLATION RULES:
             <div className="results-header">
                              <h2>Results</h2>
               <div className="results-controls">
-                {searchType === 'name' && searchResults.results && !showModal && (
+                {searchResults.results && !showModal && (
                   <div className="sort-controls">
                     <label>
                                              Sort by:
@@ -935,51 +819,26 @@ IMPORTANT TRANSLATION RULES:
                     </label>
                   </div>
                 )}
-                <button 
-                  onClick={() => setShowRawData(!showRawData)}
-                  className="toggle-button"
-                >
-                                     {showRawData ? 'Show Formatted View' : 'Show Raw JSON'}
-                </button>
               </div>
             </div>
 
-            {!showRawData ? (
-              <div className="formatted-results">
-                {searchType === 'name' && searchResults.results ? (
-                  <div className="movie-list">
-                    <p className="results-info">
-                                             Found {searchResults.total_results} results across {searchResults.total_pages} pages
-                    </p>
-                    <div className="movie-grid">
-                      {sortContent(searchResults.results).map(renderContentListItem)}
-                    </div>
+            <div className="formatted-results">
+              {searchResults.results ? (
+                <div className="movie-list">
+                  <p className="results-info">
+                                           Found {searchResults.total_results} results across {searchResults.total_pages} pages
+                  </p>
+                  <div className="movie-grid">
+                    {sortContent(searchResults.results).map(renderContentListItem)}
                   </div>
-                ) : (
-                  <>
-                    {renderDetailedContent(searchResults)}
-                    {renderCastSection()}
-                  </>
-                )}
-              </div>
-            ) : (
-              <div className="raw-results">
-                <div className="copy-section">
-                  <button 
-                    onClick={() => {
-                      const allData = castData ? { content: searchResults, cast: castData } : searchResults;
-                      navigator.clipboard.writeText(JSON.stringify(allData, null, 2));
-                    }}
-                    className="copy-button"
-                  >
-                                         Copy JSON to Clipboard
-                  </button>
                 </div>
-                <pre className="json-display">
-                  {JSON.stringify(castData ? { content: searchResults, cast: castData } : searchResults, null, 2)}
-                </pre>
-              </div>
-            )}
+              ) : (
+                <>
+                  {renderDetailedContent(searchResults)}
+                  {renderCastSection()}
+                </>
+              )}
+            </div>
           </div>
         )}
 
@@ -1009,22 +868,23 @@ IMPORTANT TRANSLATION RULES:
                     <div className="persian-header">
                       <h2>بخش فارسی</h2>
                       <div className="persian-subtitle">Persian Section</div>
-                      <div className="persian-header-actions">
-                        <button 
-                          onClick={() => setShowCustomPrompt(true)}
-                          className="custom-prompt-button"
-                          disabled={translating}
-                        >
-                          ⚙️ Custom Prompt
-                        </button>
-                        <button 
-                          onClick={translateContent}
-                          disabled={translating}
-                          className="translate-again-button"
-                        >
-                          🔄 Translate Again
-                        </button>
-                      </div>
+                                          <div className="persian-header-actions">
+                      <button 
+                        onClick={() => {
+                          if (customPromptInstructions.trim()) {
+                            // If custom prompt exists, use it and translate
+                            translateContent();
+                          } else {
+                            // If no custom prompt, show the custom prompt modal
+                            setShowCustomPrompt(true);
+                          }
+                        }}
+                        disabled={translating}
+                        className="translate-with-prompt-button"
+                      >
+                        {customPromptInstructions.trim() ? '🔄 Translate with Custom Prompt' : '⚙️ Add Custom Prompt & Translate'}
+                      </button>
+                    </div>
                     </div>
                     
 
@@ -1308,10 +1168,16 @@ IMPORTANT TRANSLATION RULES:
                     Clear Instructions
                   </button>
                   <button 
-                    onClick={() => setShowCustomPrompt(false)}
+                    onClick={() => {
+                      setShowCustomPrompt(false);
+                      // Automatically start translation after saving custom prompt
+                      if (customPromptInstructions.trim()) {
+                        setTimeout(() => translateContent(), 100);
+                      }
+                    }}
                     className="save-prompt-button"
                   >
-                    Save & Close
+                    Save & Translate
                   </button>
                 </div>
               </div>
@@ -1319,6 +1185,14 @@ IMPORTANT TRANSLATION RULES:
           </div>
         )}
       </header>
+      
+      {/* Version Footer */}
+      <footer className="version-footer">
+        <div className="version-info">
+          <span className="version-tag">v0.1.0</span>
+          <span className="commit-hash">#content-fetch</span>
+        </div>
+      </footer>
     </div>
   );
 }
