@@ -199,6 +199,16 @@ function DetailPage() {
 5. Use proper Persian terminology for film/TV industry terms
 6. Keep the tone friendly and accessible for a streaming platform audience
 
+SPECIAL INSTRUCTIONS FOR SUMMARIES AND DESCRIPTIONS:
+- When translating movie/TV show summaries and overviews, adopt a storyteller approach
+- Make the descriptions engaging and compelling for VOD platform users
+- Use narrative techniques that draw viewers in and create interest
+- Focus on the emotional and dramatic elements that would appeal to Persian audiences
+- Structure the summary to be useful for VOD platform descriptions
+- Include hooks and engaging language that encourages viewers to watch
+- Balance between being informative and entertaining
+- Use Persian storytelling conventions and cultural references when appropriate
+
 IMPORTANT TRANSLATION RULES:
 - If the input is a number (including dates, ratings, IDs, etc.), return the number exactly as is
 - If the input is a name (person names, company names, etc.), return the name exactly as is
