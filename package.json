@@ -1,7 +1,40 @@
 {
-  "name": "content-fetch",
+  "name": "filmnet-content-fetch",
   "version": "0.1.0",
   "private": true,
+  "description": "AI-powered movie and TV show search application with Persian translation capabilities. Discover movies, TV shows, and celebrities with detailed information and instant AI translations.",
+  "keywords": [
+    "movies",
+    "tv-shows",
+    "celebrities",
+    "film-search",
+    "ai-translation",
+    "persian-translation",
+    "tmdb-api",
+    "openai",
+    "content-discovery",
+    "entertainment",
+    "film-database",
+    "movie-information",
+    "tv-information",
+    "cast-details",
+    "crew-details",
+    "react",
+    "javascript"
+  ],
+  "author": {
+    "name": "Filmnet Content Fetch",
+    "email": "contact@filmnet-content-fetch.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/filmnet-content-fetch.git"
+  },
+  "homepage": "https://filmnet-content-fetch.vercel.app/",
+  "bugs": {
+    "url": "https://github.com/yourusername/filmnet-content-fetch/issues"
+  },
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.6.4",
