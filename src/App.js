@@ -1189,11 +1189,7 @@ IMPORTANT TRANSLATION RULES:
       {/* Version Footer */}
       <footer className="version-footer">
         <div className="version-info">
-          <span className="version-tag">
-            {process.env.VERCEL_GIT_COMMIT_SHA?.substring(0, 7) || 
-             process.env.REACT_APP_GIT_COMMIT || 
-             'dev'}
-          </span>
+          <span className="version-tag">v0.1.0</span>
           <span className="commit-hash">#content-fetch</span>
         </div>
       </footer>
